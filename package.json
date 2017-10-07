@@ -1,0 +1,18 @@
+{
+  "name": "crunchyroll-mal-linker",
+  "version": "1.0.0-alpha.0",
+  "description": "Script to add MAL link into Crunchyroll anime pages",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "myanimelist",
+    "crunchyroll",
+    "mal",
+    "crunchy",
+    "script"
+  ],
+  "author": "Rodolfo Aguirre <aguirreg.rodolfo@gmail.com>",
+  "license": "ISC"
+}
