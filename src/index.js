@@ -12,12 +12,15 @@ const config = {
 const mal_url = "https://myanimelist.net/";
 
 function searchAnime(name) {
-    name = name.toLowerCase();
-
     const url = `${ mal_url }api/anime/search.xml?q=${ encodeURI( name ) }`;
     return fetchData("GET", url).then(data => {
         const anime = data.anime.entry[0];
         return `${ mal_url }anime/${ anime.id }/`;
+    }).catch(response => {
+        if (!response.status) return;
+
+        const lastSpace = name.lastIndexOf(" ");
+        if (lastSpace !== -1) return searchAnime(name.substring(0, lastSpace));
     });
 }
 
@@ -32,25 +35,28 @@ const fetchData = (method, url) => {
         mode: "cors",
     });
     return fetch(request)
-        .then(response => response.text())
-        .then(parseXML)
-        .catch(console.warn);
+        .then(response => {
+            if (response.status !== 200) return Promise.reject(response);
+            return response.text();
+        })
+        .then(parseXML);
 }
 
 const parseXML = (xml) => new Promise((resolve, reject) => {
-    if (!xml) return reject();
-
     parseString(xml, (error, result) => {
-        if (error) reject(reject);
+        if (error) reject(error);
         resolve(result);
     })
 });
 
 $(document).ready(() => {
+    if (!$("#source_showview").length) return;
+
     const $title = $("h1.ellipsis");
     const name = $("h1.ellipsis span").text();
     searchAnime(name).then(url => {
+        if (!url) return;
+
         $title.append(`<a href="${ url }" style="vertical-align: middle;"><img src="https://myanimelist.cdn-dena.com/images/faviconv5.ico"></a>`);
-        // console.log(url);
     });
 });
