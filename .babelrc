@@ -1,0 +1,19 @@
+{
+    "passPerPreset": true,
+    "presets": [
+        "es2015", {
+            "plugins": ["iife-wrap"]
+        }
+    ],
+    "plugins": [
+        ["add-header-comment", {
+            "header": ["?SCRIPT"],
+            "commentLineStart": "// "
+        }]
+    ],
+    "env": {
+        "prod": {
+            "presets": ["minify"]
+        }
+    }
+}

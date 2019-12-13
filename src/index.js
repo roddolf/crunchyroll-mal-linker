@@ -1,26 +1,17 @@
-import {
-    parseString
-} from "xml2js";
-
-const config = {
-    credentials: {
-        user: "***",
-        pass: "***",
-    },
-};
-
 const mal_url = "https://myanimelist.net/";
 
 function searchAnime(name) {
-    const url = `${ mal_url }api/anime/search.xml?q=${ encodeURI( name ) }`;
+    const url = `https://myanimelist.net/search/prefix.json?type=anime&keyword=${ encodeURI( name ) }&v=1`;
     return fetchData("GET", url).then(data => {
-        const anime = data.anime.entry[0];
-        return `${ mal_url }anime/${ anime.id }/`;
-    }).catch(response => {
-        if (!response.status) return;
+        const {
+            categories: [{
+                items: [anime],
+            }]
+        } = data;
 
-        const lastSpace = name.lastIndexOf(" ");
-        if (lastSpace !== -1) return searchAnime(name.substring(0, lastSpace));
+        if (!anime) return;
+
+        return anime.url;
     });
 }
 
@@ -28,26 +19,13 @@ const cors_api_url = "https://cors-anywhere.herokuapp.com/";
 
 const fetchData = (method, url) => {
     const request = new Request(cors_api_url + url, {
-        method,
-        headers: {
-            "Authorization": `Basic ${ btoa(`${config.credentials.user}:${config.credentials.pass}`) }`,
-        },
-        mode: "cors",
+        method
     });
-    return fetch(request)
-        .then(response => {
-            if (response.status !== 200) return Promise.reject(response);
-            return response.text();
-        })
-        .then(parseXML);
-}
-
-const parseXML = (xml) => new Promise((resolve, reject) => {
-    parseString(xml, (error, result) => {
-        if (error) reject(error);
-        resolve(result);
-    })
-});
+    return fetch(request).then(response => {
+        if (response.status !== 200) return Promise.reject(response);
+        return response.json();
+    });
+};
 
 $(document).ready(() => {
     if (!$("#source_showview").length) return;
