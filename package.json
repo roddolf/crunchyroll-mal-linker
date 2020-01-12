@@ -1,6 +1,6 @@
 {
   "name": "crunchyroll-mal-linker",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.1",
   "description": "Script to add MAL link into Crunchyroll anime pages",
   "main": "dist/index.js",
   "scripts": {
