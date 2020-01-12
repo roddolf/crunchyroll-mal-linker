@@ -1,14 +1,12 @@
 // ==UserScript==
-// @namespace    http://tampermonkey.net/
 // @name         Crunchy/MAL linker
 // @version      1.0.1
 // @description  Add links into Crunchyroll for MAL anime library.
-// @author       roddolf
-// 
+// @author       Rodolfo Aguirre
+// @namespace    https://github.com/roddolf
 // @include      /^http://www.crunchyroll.com/[a-zA-Z-\d]+$/
-//
-// @updateURL   https://raw.githubusercontent.com/roddolf/crunchyroll-mal-linker/master/dist/index.js
-// @downloadURL https://raw.githubusercontent.com/roddolf/crunchyroll-mal-linker/master/dist/index.js
+// @updateURL   https://raw.githubusercontent.com/roddolf/crunchyroll-mal-linker/master/dist/main.js
+// @downloadURL https://raw.githubusercontent.com/roddolf/crunchyroll-mal-linker/master/dist/main.js
 // ==/UserScript==
 
 
