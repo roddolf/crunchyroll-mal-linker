@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rimraf dist && npm run build:prod",
-    "build:prod": "NODE_ENV=prod npm run build:dev -- --source-maps=false",
-    "build:dev": "babel src -d dist --source-maps"
+    "build:prod": "cross-env-shell NODE_ENV=production \"rollup -c\"",
+    "build:dev": "cross-env-shell NODE_ENV=development \"rollup -c\""
   },
   "keywords": [
     "myanimelist",
@@ -20,12 +20,15 @@
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
-    "babel-plugin-add-header-comment": "^1.0.3",
-    "babel-plugin-iife-wrap": "^1.1.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-minify": "^0.2.0",
-    "rimraf": "^2.6.2"
+    "@rollup/plugin-node-resolve": "^7.0.0",
+    "@types/jquery": "^3.3.31",
+    "cross-env": "^6.0.3",
+    "rimraf": "^3.0.0",
+    "rollup": "^1.29.0",
+    "rollup-plugin-shift-header": "git+https://github.com/roddolf/rollup-plugin-shift-header.git",
+    "rollup-plugin-terser": "^5.2.0",
+    "rollup-plugin-typescript2": "^0.25.3",
+    "tslib": "^1.10.0",
+    "typescript": "^3.7.4"
   }
 }
