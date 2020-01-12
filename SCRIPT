@@ -1,9 +1,0 @@
-==UserScript==
-@namespace    http://tampermonkey.net/
-@name         Crunchy/MAL linker
-@version      0.1
-@description  Add links into Crunchyroll for MAL anime library.
-@author       roddolf
-
-@include      /^http://www.crunchyroll.com/[a-zA-Z-\d]+$/
-==/UserScript==
