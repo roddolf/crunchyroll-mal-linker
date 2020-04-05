@@ -4,14 +4,14 @@
 // @description  Add links into Crunchyroll for MAL anime library.
 // @author       Rodolfo Aguirre
 // @namespace    https://github.com/roddolf
-// @include      /^http://www.crunchyroll.com/[a-zA-Z-\d]+$/
+// @include      /^https?://www.crunchyroll.com/([a-z-]+/)?[a-zA-Z-\d]+$/
 // @updateURL   https://raw.githubusercontent.com/roddolf/crunchyroll-mal-linker/master/dist/main.js
 // @downloadURL https://raw.githubusercontent.com/roddolf/crunchyroll-mal-linker/master/dist/main.js
 // ==/UserScript==
 
 
 const mal_url = "https://myanimelist.net/";
-const mal_icon = "https://myanimelist.cdn-dena.com/images/faviconv5.ico";
+const mal_icon = "https://cdn.myanimelist.net/images/faviconv5.ico";
 const cors_api_url = "https://cors-anywhere.herokuapp.com/";
 
 function searchAnime(name: string) {
