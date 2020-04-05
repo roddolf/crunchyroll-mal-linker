@@ -1,7 +1,0 @@
-yarn run v1.21.1
-$ rimraf dist && npm run build:prod
-
-> crunchyroll-mal-linker@1.0.0-alpha.0 build:prod C:\Users\roaguirr\Projects\GitHub\crunchyroll-mal-linker
-> cross-env-shell NODE_ENV=production "rollup -c ./src/main.ts"
-
-info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
