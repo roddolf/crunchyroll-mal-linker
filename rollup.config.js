@@ -1,14 +1,14 @@
 import path from 'path';
-import typescript from 'rollup-plugin-typescript2';
-// import typescript from '@rollup/plugin-typescript';
 import license from 'rollup-plugin-license';
 import { terser } from 'rollup-plugin-terser';
+import typescript from 'rollup-plugin-typescript2';
 
 
 const isProduction = process.env.NODE_ENV === 'production';
 
 module.exports = {
     input: 'src/script.user.ts',
+    context: 'window',
     plugins: [
         license({
             banner: {
