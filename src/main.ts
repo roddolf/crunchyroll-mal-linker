@@ -40,7 +40,7 @@ const fetchData = async (method: string, url: string) => {
     return response.json();
 };
 
-$(document).ready(async () => {
+$(async () => {
     if (!$("#source_showview").length) return;
 
     const $title = $("h1.ellipsis");

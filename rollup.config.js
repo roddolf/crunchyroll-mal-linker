@@ -8,6 +8,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 module.exports = {
     input: 'src/main.ts',
+    context: 'window',
     plugins: [
         shiftHeader(),
         typescript(),
@@ -22,4 +23,8 @@ module.exports = {
         file: 'dist/main.js',
         format: 'iife'
     },
+    // onwarn: (warning, warn) => {
+    //     if (warning.code === 'THIS_IS_UNDEFINED') return;
+    //     warn(warning);
+    // }
 };
