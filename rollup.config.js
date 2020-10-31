@@ -10,6 +10,8 @@ module.exports = {
     input: 'src/script.user.ts',
     context: 'window',
     plugins: [
+        typescript({}),
+        isProduction && terser({}),
         license({
             banner: {
                 commentStyle: 'none',
@@ -18,12 +20,6 @@ module.exports = {
                     encoding: 'utf-8',
                 },
             },
-        }),
-        typescript({}),
-        isProduction && terser({
-            output: {
-                comments: "all"
-            }
         }),
     ],
     output: {
