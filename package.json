@@ -1,6 +1,6 @@
 {
   "name": "crunchyroll-mal-linker",
-  "version": "1.0.1",
+  "version": "1.2.0",
   "description": "Script to add MAL link into Crunchyroll anime pages",
   "main": "dist/index.js",
   "scripts": {
@@ -20,12 +20,12 @@
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {
-    "@rollup/plugin-node-resolve": "^10.0.0",
+    "@rollup/plugin-typescript": "^6.1.0",
     "@types/jquery": "^3.5.4",
     "cross-env": "^7.0.2",
     "rimraf": "^3.0.2",
     "rollup": "^2.32.1",
-    "rollup-plugin-shift-header": "git+https://github.com/roddolf/rollup-plugin-shift-header.git",
+    "rollup-plugin-license": "^2.2.0",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.29.0",
     "tslib": "^2.0.3",
