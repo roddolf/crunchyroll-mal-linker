@@ -23,8 +23,4 @@ module.exports = {
         file: 'dist/main.js',
         format: 'iife'
     },
-    // onwarn: (warning, warn) => {
-    //     if (warning.code === 'THIS_IS_UNDEFINED') return;
-    //     warn(warning);
-    // }
 };
