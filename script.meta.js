@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Crunchy/MAL linker
 // @namespace    https://github.com/roddolf/scripts
-// @version      1.3.0
+// @version      1.4.0
 // @description  Add links into Crunchyroll for MAL anime library.
 // @author       Rodolfo Aguirre
 // @include      /^https?:\/\/www.crunchyroll.com\/([a-z-]+/)?[a-zA-Z-\d]+$/
