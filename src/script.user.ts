@@ -50,52 +50,75 @@ const fetchData = async <T>(method: 'GET' | 'HEAD' | 'POST', url: string): Promi
     return body;
 };
 
-const elementReady = async (selector: string): Promise<Element> => {
-    const element = document.querySelector(selector);
-    if (element) return element;
-
-    return new Promise(resolve => {
-        const observer = new MutationObserver((_, observer) => {
+const getElement = async (selector: string): Promise<Element> => {
+    // Check if element already loaded
+    const existingElement = document.querySelector(selector);
+    if (existingElement) {
+        console.log('Existing element', existingElement);
+        return existingElement;
+    }
+    
+    // Wait element to load
+    const loadedElement = await new Promise<Element>((resolve) => {
+        const observer = new MutationObserver(() => {
             const element = document.querySelector(selector);
-
-            if (element) {
-                observer.disconnect();
-                resolve(element);
-            }
+            if (!element) return;
+            
+            observer.disconnect();
+            console.log('element observer disconnected')
+            resolve(element);
         });
-
+        
         observer.observe(document.documentElement, {
             childList: true,
             subtree: true
         });
     });
-}
+    console.log('Loaded element', loadedElement);
+    return loadedElement;
+};
+
+const addMalLink = async ($title: Element): Promise<void> => {
+    // Validate if already added
+    if ($title.parentElement?.querySelector('a')) {
+        console.log('Link already added');
+        return;
+    }
+
+    const name = $title.textContent;
+    if (!name) return;
+
+    console.log(name);
+
+    const url = await searchAnime(name);
+    if (!url) return;
+
+    const $malLink = document.createElement('a');
+    $malLink.href = url;
+    $malLink.style.display = 'inline-block';
+    $malLink.style.fontSize = '0';
+    $malLink.style.marginLeft = '1.875rem';
+
+    const $malImg = document.createElement('img');
+    $malImg.src = mal_icon;
+    $malImg.style.width = 'inherit';
+    $malLink.appendChild($malImg);
+
+    $title.parentElement?.insertBefore($malLink, $title.nextElementSibling);
+};
+
+const findTitleAndAddLink = async (): Promise<void> => {
+    const $title = await getElement(`.erc-series-hero > .body .title`);
+    await addMalLink($title);
+};
 
 // When is using beta version of the website
 if (location.hostname.startsWith('beta.')) {
-    elementReady(`.erc-series-hero > .body .title`)
-        .then(async $title => {
-            const name = $title.textContent;
-            if (!name) return;
-
-            const url = await searchAnime(name);
-            if (!url) return;
-
-            const $malLink = document.createElement('a');
-            $malLink.href = url;
-            $malLink.style.display = 'inline-block';
-            $malLink.style.fontSize = '0';
-            $malLink.style.marginLeft = '1.875rem';
-
-            const $malImg = document.createElement('img');
-            $malImg.src = mal_icon;
-            $malImg.style.width = 'inherit';
-            $malLink.appendChild($malImg);
-
-            $title.parentElement?.insertBefore($malLink, $title.nextElementSibling);
-        });
+    window.onload = function () {
+        void findTitleAndAddLink();
+    }
 }
-// When in public website
+// When in old website
 else {
     $(async () => {
         if (!$("#source_showview").length) return;
