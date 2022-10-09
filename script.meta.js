@@ -8,4 +8,6 @@
 // @include      /^https?:\/\/beta.crunchyroll.com\/([a-z-]+\/)?series\/[a-zA-Z-\d]+\/[a-zA-Z-\d]+$/
 // @updateURL    https://raw.githubusercontent.com/roddolf/crunchyroll-mal-linker/master/script.meta.js
 // @downloadURL  https://raw.githubusercontent.com/roddolf/crunchyroll-mal-linker/master/dist/script.user.js
+// @connect      api.jikan.moe
+// @grant        GM_xmlhttpRequest
 // ==/UserScript==
