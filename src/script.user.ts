@@ -84,11 +84,12 @@ if (location.hostname.startsWith('beta.')) {
             const $malLink = document.createElement('a');
             $malLink.href = url;
             $malLink.style.display = 'inline-block';
-            $malLink.style.marginBottom = '10px';
+            $malLink.style.fontSize = '0';
+            $malLink.style.marginLeft = '1.875rem';
 
             const $malImg = document.createElement('img');
             $malImg.src = mal_icon;
-            $malImg.style.width = '25px';
+            $malImg.style.width = 'inherit';
             $malLink.appendChild($malImg);
 
             $title.parentElement?.insertBefore($malLink, $title.nextElementSibling);
