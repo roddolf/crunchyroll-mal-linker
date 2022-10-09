@@ -89,6 +89,7 @@ const addMalLink = async ($title: Element): Promise<void> => {
 
     const $malLink = document.createElement('a');
     $malLink.href = url;
+    $malLink.target = '_blank';
     $malLink.style.display = 'inline-block';
     $malLink.style.fontSize = '0';
     $malLink.style.marginLeft = '1.875rem';
