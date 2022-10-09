@@ -9,5 +9,6 @@
 // @updateURL    https://raw.githubusercontent.com/roddolf/crunchyroll-mal-linker/master/script.meta.js
 // @downloadURL  https://raw.githubusercontent.com/roddolf/crunchyroll-mal-linker/master/dist/script.user.js
 // @connect      api.jikan.moe
+// @connect      api.myanimelist.net
 // @grant        GM_xmlhttpRequest
 // ==/UserScript==
