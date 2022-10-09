@@ -54,41 +54,35 @@ const getElement = async (selector: string): Promise<Element> => {
     // Check if element already loaded
     const existingElement = document.querySelector(selector);
     if (existingElement) {
-        console.log('Existing element', existingElement);
         return existingElement;
     }
-    
+
     // Wait element to load
     const loadedElement = await new Promise<Element>((resolve) => {
         const observer = new MutationObserver(() => {
             const element = document.querySelector(selector);
             if (!element) return;
-            
+
             observer.disconnect();
-            console.log('element observer disconnected')
             resolve(element);
         });
-        
+
         observer.observe(document.documentElement, {
             childList: true,
             subtree: true
         });
     });
-    console.log('Loaded element', loadedElement);
     return loadedElement;
 };
 
 const addMalLink = async ($title: Element): Promise<void> => {
     // Validate if already added
     if ($title.parentElement?.querySelector('a')) {
-        console.log('Link already added');
         return;
     }
 
     const name = $title.textContent;
     if (!name) return;
-
-    console.log(name);
 
     const url = await searchAnime(name);
     if (!url) return;
@@ -112,10 +106,33 @@ const findTitleAndAddLink = async (): Promise<void> => {
     await addMalLink($title);
 };
 
+const updateOnPageChange = () => {
+    let recoredHref = document.location.href;
+    const observer = new MutationObserver(() => {
+        if (recoredHref != document.location.href) {
+            // Update recored Href
+            recoredHref = document.location.href;
+
+            // If in a series page
+            if (recoredHref.match(/series\/[a-zA-Z-\d]+\/[a-zA-Z-\d]+$/)) {
+                // Update link
+                void findTitleAndAddLink();
+            }
+
+        }
+    });
+
+    observer.observe(document.documentElement, {
+        childList: true,
+        subtree: true
+    });
+};
+
 // When is using beta version of the website
 if (location.hostname.startsWith('beta.')) {
     window.onload = function () {
         void findTitleAndAddLink();
+        updateOnPageChange();
     }
 }
 // When in old website
