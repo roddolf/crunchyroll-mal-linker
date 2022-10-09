@@ -26,7 +26,7 @@ const getElement = async (selector: string): Promise<Element> => {
 
     observer.observe(document.documentElement, {
       childList: true,
-      subtree: true
+      subtree: true,
     });
   });
   return loadedElement;
@@ -82,7 +82,7 @@ const updateOnPageChange = () => {
 
   observer.observe(document.documentElement, {
     childList: true,
-    subtree: true
+    subtree: true,
   });
 };
 

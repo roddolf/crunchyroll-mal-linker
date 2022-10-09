@@ -34,8 +34,7 @@ export const searchAnime = async (name: string): Promise<string | undefined> => 
   // Find exact match
   let anime = animes.find(anime =>
     anime.node.title === name ||
-    anime.node.alternative_titles?.en === name ||
-    anime.node.alternative_titles?.synonyms?.find(x => x === name)
+    anime.node.alternative_titles?.en === name
   );
 
   // Use first one if no exact match found
