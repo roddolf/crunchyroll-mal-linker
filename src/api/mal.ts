@@ -38,7 +38,7 @@ const requestMal = <T>(method: 'GET' | 'HEAD' | 'POST', url: string) => request<
 
 export const searchAnime = async (name: string): Promise<string | undefined> => {
   const query = new URLSearchParams({
-    q: name.slice(0, 65),
+    q: name.slice(0, 60),
     limit: '25',
     fields: 'alternative_titles',
   });
