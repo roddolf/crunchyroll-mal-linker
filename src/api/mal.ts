@@ -1,3 +1,4 @@
+import { UrlCache } from "./caching";
 import { request } from "./common";
 
 export interface DataNode<T> {
@@ -29,14 +30,23 @@ export interface RelatedAnime extends DataNode<AnimeItem> {
   relation_type?: string;
 }
 
-const api_url = `https://api.myanimelist.net/v2`;
-const mal_url = `https://myanimelist.net`;
+const cache = new UrlCache({
+  maxSize: 5000,
+  ttl: 1000 * 60 * 5,
+});
 
-const requestMal = <T>(method: 'GET' | 'HEAD' | 'POST', url: string) => request<T>(method, `${api_url}/${url}`, {
+const api_host = `https://api.myanimelist.net/v2`;
+const mal_host = `https://myanimelist.net`;
+
+const requestMal = <T>(method: 'GET' | 'HEAD' | 'POST', url: string) => request<T>(method, `${api_host}/${url}`, {
   'X-MAL-CLIENT-ID': '96884d8bfed54d526cc619941f4398af',
 });
 
 export const searchAnime = async (name: string): Promise<string | undefined> => {
+  // Check cache
+  const cachedURL = cache.get(name);
+  if (cachedURL) return cachedURL;
+
   const query = new URLSearchParams({
     q: name.slice(0, 60),
     limit: '25',
@@ -60,7 +70,13 @@ export const searchAnime = async (name: string): Promise<string | undefined> => 
     : result.data[0];
 
   // Build url
-  return `${mal_url}/anime/${anime.node.id}/${anime.node.title}`;
+  const animeUrl = `${mal_host}/anime/${anime.node.id}/${anime.node.title}`;
+
+  // Add to cache
+  cache.add(name, animeUrl);
+
+  // Return the MAL URL
+  return animeUrl;
 };
 
 export const getAnime = async (id: number): Promise<AnimeItem | undefined> => {
