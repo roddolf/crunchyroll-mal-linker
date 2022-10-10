@@ -37,7 +37,12 @@ const requestMal = <T>(method: 'GET' | 'HEAD' | 'POST', url: string) => request<
 });
 
 export const searchAnime = async (name: string): Promise<string | undefined> => {
-  const url = `anime?q=${encodeURI(name)}&limit=25&fields=alternative_titles`;
+  const query = new URLSearchParams({
+    q: name.slice(0, 65),
+    limit: '25',
+    fields: 'alternative_titles',
+  });
+  const url = `anime?${query.toString()}`;
   const result = await requestMal<SearchAnime>('GET', url);
   if (!result?.data?.length) return;
 
@@ -59,7 +64,10 @@ export const searchAnime = async (name: string): Promise<string | undefined> => 
 };
 
 export const getAnime = async (id: number): Promise<AnimeItem | undefined> => {
-  const url = `anime/${id}?fields=alternative_titles,related_anime{alternative_titles}`;
+  const query = new URLSearchParams({
+    fields: 'alternative_titles,related_anime{alternative_titles}',
+  });
+  const url = `anime/${id}?${query.toString()}`;
   const result = await requestMal<AnimeItem>('GET', url);
   if (!result) return;
 
