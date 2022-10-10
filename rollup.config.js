@@ -6,7 +6,7 @@ import typescript from 'rollup-plugin-typescript2';
 
 const isProduction = process.env.NODE_ENV === 'production';
 
-module.exports = {
+export default {
     input: 'src/script.user.ts',
     context: 'window',
     plugins: [
