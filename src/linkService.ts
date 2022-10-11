@@ -68,7 +68,7 @@ export class LinkService {
     // Create the MAL image
     const linkImgElement = document.createElement('img');
     linkImgElement.src = MAL_ICON;
-    linkImgElement.style.width = 'inherit';
+    linkImgElement.style.width = '44px';
     linkElement.appendChild(linkImgElement);
 
     // Add link to the title
