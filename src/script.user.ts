@@ -51,8 +51,8 @@ else {
     if (!url) return;
 
     // Add link
-    titleElement.insertAdjacentHTML('beforeend', `
-      <a href="${url}" style="vertical-align: middle;">
+    titleElement.insertAdjacentHTML('beforeend',
+      `<a href="${url}" style="vertical-align: middle;">
         <img src="${MAL_ICON}" style='width: 17px; border: 0'>
       </a>`
     );
