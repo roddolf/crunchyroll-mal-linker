@@ -34,15 +34,27 @@ if (location.hostname.startsWith('beta.')) {
 }
 // When in old website
 else {
-  $(async () => {
-    if (!$("#source_showview").length) return;
+  window.onload = async () => {
+    // Check in show page
+    if (!document.querySelector("#source_showview")) return;
 
-    const $title = $("h1.ellipsis");
-    const name = $("h1.ellipsis span").text();
+    // Get show title element
+    const titleElement = document.querySelector('h1.ellipsis');
+    if (!titleElement) return;
 
+    // Get show name
+    const name = titleElement.querySelector('span')?.textContent;
+    if (!name) return;
+
+    // Get show MAL URL
     const url = await searchAnime(name);
     if (!url) return;
 
-    $title.append(`<a href="${url}" style="vertical-align: middle;"><img src="${MAL_ICON}" style='width: 17px; border: 0'></a>`);
-  });
+    // Add link
+    titleElement.insertAdjacentHTML('beforeend', `
+      <a href="${url}" style="vertical-align: middle;">
+        <img src="${MAL_ICON}" style='width: 17px; border: 0'>
+      </a>`
+    );
+  };
 }
